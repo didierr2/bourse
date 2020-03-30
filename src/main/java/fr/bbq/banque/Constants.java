@@ -11,9 +11,11 @@ import lombok.NoArgsConstructor;
 public final class Constants {
 
 	public final static List<String> URLS = Arrays.asList(
-			"https://www.boursorama.com/cours/1rPRNO/",
-			"https://www.boursorama.com/cours/1rPGLE/");
-	public final static String EXCEL_LOCATION = "C:\\Users\\Didier\\eclipse-workspace\\ws_2020-03\\banque\\src\\main\\resources\\banque.xlsx";
+			"https://www.boursorama.com/cours/1rPGLE/",
+			"https://www.boursorama.com/cours/1rPUG/",
+			"https://www.boursorama.com/cours/1rPSGO/",
+			"https://www.boursorama.com/cours/1rPBNP/");
+	public final static String EXCEL_LOCATION = "C:\\Users\\Didier\\eclipse-workspace\\ws_2020-03\\bourse\\src\\main\\resources\\boursorama.xlsx";
 	
 	public static final SimpleDateFormat SDF_EXCEL = new SimpleDateFormat("dd/MM/yyyy");
 			
