@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 public final class Constants {
 
 	public final static List<String> URLS = Arrays.asList(
-			"https://www.boursorama.com/cours/1rPGLE/",
-			"https://www.boursorama.com/cours/1rPUG/",
-			"https://www.boursorama.com/cours/1rPSGO/",
+//			"https://www.boursorama.com/cours/1rPGLE/",
+//			"https://www.boursorama.com/cours/1rPUG/",
+//			"https://www.boursorama.com/cours/1rPSGO/",
 			"https://www.boursorama.com/cours/1rPBNP/");
 	public final static String EXCEL_LOCATION = "C:\\Users\\Didier\\eclipse-workspace\\ws_2020-03\\bourse\\src\\main\\resources\\boursorama.xlsx";
 	
@@ -26,6 +26,7 @@ public final class Constants {
 		SHEET_BOURSIER(1),
 		ROW_ISIN (0),
 		ROW_SOCIETE (1),
+		ROW_URL (2),
 		CELL_DATE(0);
 		
 		
