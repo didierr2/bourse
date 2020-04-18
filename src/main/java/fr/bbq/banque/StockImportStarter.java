@@ -5,9 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.ChronoField;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -16,7 +14,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-public class BourseStarter {
+public class StockImportStarter {
 
 	// TODO Ajouter un logger log4j
 	public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
@@ -72,7 +70,9 @@ public class BourseStarter {
 						System.out.println("update : getTodayPrice : " + sc.getTodayPrice());
 					}
 					sc.nextCol();
-					Thread.sleep(Constants.SLEEP_INTERVAL_SECONDS * 1000);
+					
+					// L'attente est aléatoirement calculé entre 1x et 2x SLEEP_INTERVAL_SECONDS
+					Thread.sleep(((int)(Math.random() * Constants.SLEEP_INTERVAL_SECONDS) + Constants.SLEEP_INTERVAL_SECONDS) * 1000);
 				}
 			}
 			
