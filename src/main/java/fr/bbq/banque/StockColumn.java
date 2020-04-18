@@ -2,6 +2,7 @@ package fr.bbq.banque;
 
 import static fr.bbq.banque.CellUtils.isEmpty;
 import static fr.bbq.banque.CellUtils.writeCell;
+import static fr.bbq.banque.CellUtils.writeNumericCell;
 import static fr.bbq.banque.Constants.ROWS_AND_CELLS.COL_FIRST_STOCK;
 
 import org.apache.poi.ss.usermodel.Sheet;
@@ -69,7 +70,7 @@ public class StockColumn {
 			writeCell(sheet, Constants.ROWS_AND_CELLS.ROW_ISIN.value, columnIndex, stock.getIsin());
 			writeCell(sheet, Constants.ROWS_AND_CELLS.ROW_SOCIETE.value, columnIndex, stock.getSociete());
 		}
-		writeCell(sheet, todayRowIndex, columnIndex, stock.getCours());
+		writeNumericCell(sheet, todayRowIndex, columnIndex, stock.getCours());
 	}
 	
 	private String getCellAsTextValue(int rowIndex) {

@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Constants {
 
-	public final static String EXCEL_LOCATION = "C:\\Users\\Didier\\eclipse-workspace\\ws_2020-03\\bourse\\src\\main\\resources\\bourse.xlsx";
-//	public final static String EXCEL_LOCATION = "/bourse.xlsx";
-	
 	public static final SimpleDateFormat SDF_EXCEL = new SimpleDateFormat("dd/MM/yyyy");
 			
 	

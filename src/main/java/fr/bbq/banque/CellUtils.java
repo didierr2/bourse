@@ -44,17 +44,34 @@ public class CellUtils {
 		return str == null || str.isEmpty();
 	}
 	
+
+	public static void writeNumericCell (Sheet sheet, int rowIndex, int colIndex, String val) {
+		try {
+			Double num = Double.valueOf(val);
+			Cell cell = createCellIfNotExists(sheet, rowIndex, colIndex, CellType.NUMERIC);
+			cell.setCellValue(num);
+		}
+		catch (NumberFormatException nfe) {
+			System.err.println(String.format("Erreur durant l'ecriture de '%s' en tant que nombre dans la cellule (lecriture sera realisee en string): %s", val, nfe.getMessage()));
+			writeCell(sheet, rowIndex, colIndex, val);
+		}
+	}
+	
 	public static void writeCell (Sheet sheet, int rowIndex, int colIndex, String val) {
+		Cell cell = createCellIfNotExists(sheet, rowIndex, colIndex, CellType.STRING);
+		cell.setCellValue(val);
+	}
+	
+	private static Cell createCellIfNotExists(Sheet sheet, int rowIndex, int colIndex, CellType ctype) {
 		Row row = sheet.getRow(rowIndex);
 		if (row == null) {
 			row = sheet.createRow(rowIndex);
 		}
 		Cell cell = row.getCell(colIndex);
 		if (cell == null) {
-			cell = row.createCell(colIndex, CellType.STRING);
+			cell = row.createCell(colIndex, ctype);
 		}
-		cell.setCellValue(val);
-//		System.out.println("WRITE : " + getCellLabel(rowIndex, colIndex) + " = " + val);
+		return cell;
 	}
 	
 	

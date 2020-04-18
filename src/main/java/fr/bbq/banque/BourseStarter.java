@@ -18,17 +18,24 @@ import org.jsoup.nodes.Element;
 
 public class BourseStarter {
 
-	// TODO Externaliser les parametres 
 	// TODO Ajouter un logger log4j
 	public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
+		
+		if (args.length == 0 || args[0] == null) {
+			System.err.println("Parametre d'execution manquant.");
+			System.exit(-1);
+		}
+		
+		String filename = args[0];
+		
 		// Le week end le programme ne sert a rien (marchers fermes)
 		LocalDate day = LocalDate.now();
-		if (day.get(ChronoField.DAY_OF_WEEK) == DayOfWeek.SATURDAY.getValue() || day.get(ChronoField.DAY_OF_WEEK) == DayOfWeek.SUNDAY.getValue()) {
-			System.out.println("Le week-end l'analyse des cours n'est pas utile (les marchers sont fermes). Arret de l'application");
-		}
-		else {
+//		if (day.get(ChronoField.DAY_OF_WEEK) == DayOfWeek.SATURDAY.getValue() || day.get(ChronoField.DAY_OF_WEEK) == DayOfWeek.SUNDAY.getValue()) {
+//			System.out.println("Le week-end l'analyse des cours n'est pas utile (les marchers sont fermes). Arret de l'application");
+//		}
+//		else {
 			Workbook workbook = null;
-			try (FileInputStream stream = new FileInputStream(new File(Constants.EXCEL_LOCATION))) {
+			try (FileInputStream stream = new FileInputStream(new File(filename))) {
 //			try (InputStream stream = BoursoramaStarter.class.getResourceAsStream(Constants.EXCEL_LOCATION)) {
 				workbook = new XSSFWorkbook(stream);
 				Sheet sheet = workbook.getSheetAt(Constants.ROWS_AND_CELLS.SHEET_DATA.value);
@@ -70,20 +77,20 @@ public class BourseStarter {
 			}
 			
 			// on enregistre le fichier
-			saveAndCloseWorkbook(workbook);
-		}
+			saveAndCloseWorkbook(workbook, filename);
+//		}
 	}
 	
 
-	private static void saveAndCloseWorkbook(Workbook workbook) {
+	private static void saveAndCloseWorkbook(Workbook workbook, String filename) {
 		if (workbook != null) {
 //			URL url = BoursoramaStarter.class.getResource(Constants.EXCEL_LOCATION);
 //			try (FileOutputStream outputStream = new FileOutputStream(url.toURI().getPath())) {
-			try (FileOutputStream outputStream = new FileOutputStream(Constants.EXCEL_LOCATION)) {
+			try (FileOutputStream outputStream = new FileOutputStream(filename)) {
 				workbook.write(outputStream);
 				workbook.close();
 //				System.out.println("Fichier sauvegarde : " + url.toURI().getPath());
-				System.out.println("Fichier sauvegarde : " + Constants.EXCEL_LOCATION);
+				System.out.println("Fichier sauvegarde : " + filename);
 //			} catch (URISyntaxException | IOException e) {
 			} catch (IOException e) {
 				System.err.println("Erreur a l'enregistrement du fichier excel");
