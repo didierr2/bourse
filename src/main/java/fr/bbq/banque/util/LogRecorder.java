@@ -1,4 +1,4 @@
-package fr.bbq.banque;
+package fr.bbq.banque.util;
 
 import java.util.ArrayList;
 import java.util.List;

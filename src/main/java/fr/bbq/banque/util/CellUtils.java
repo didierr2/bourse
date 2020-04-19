@@ -1,9 +1,11 @@
-package fr.bbq.banque;
+package fr.bbq.banque.util;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 public class CellUtils {
 
@@ -45,16 +47,31 @@ public class CellUtils {
 	}
 	
 
-	public static void writeNumericCell (Sheet sheet, int rowIndex, int colIndex, String val) {
+	public static void writePercentCell (Workbook workbook, Sheet sheet, int rowIndex, int colIndex, String val) {
+		try {
+			Cell cell = writeNumericCell(sheet, rowIndex, colIndex, val);
+			CellStyle style = workbook.createCellStyle();
+			style.setDataFormat(workbook.createDataFormat().getFormat("0%")); //"0.00%"
+			cell.setCellStyle(style);
+		}
+		catch (NumberFormatException nfe) {
+			System.err.println(String.format("Erreur durant l'ecriture de '%s' en tant que nombre dans la cellule (lecriture sera realisee en string): %s", val, nfe.getMessage()));
+			writeCell(sheet, rowIndex, colIndex, val);
+		}
+	}
+
+	public static Cell writeNumericCell (Sheet sheet, int rowIndex, int colIndex, String val) {
+		Cell cell = null;
 		try {
 			Double num = Double.valueOf(val);
-			Cell cell = createCellIfNotExists(sheet, rowIndex, colIndex, CellType.NUMERIC);
+			cell = createCellIfNotExists(sheet, rowIndex, colIndex, CellType.NUMERIC);
 			cell.setCellValue(num);
 		}
 		catch (NumberFormatException nfe) {
 			System.err.println(String.format("Erreur durant l'ecriture de '%s' en tant que nombre dans la cellule (lecriture sera realisee en string): %s", val, nfe.getMessage()));
 			writeCell(sheet, rowIndex, colIndex, val);
 		}
+		return cell;
 	}
 	
 	public static void writeCell (Sheet sheet, int rowIndex, int colIndex, String val) {

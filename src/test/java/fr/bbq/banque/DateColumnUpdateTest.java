@@ -11,6 +11,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.bbq.banque.xls.DateColumn;
+
 public class DateColumnUpdateTest {
 
 	InputStream streamNotTodayDate = null;

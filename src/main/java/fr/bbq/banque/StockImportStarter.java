@@ -4,9 +4,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
+import fr.bbq.banque.util.LogRecorder;
+import fr.bbq.banque.xls.DateColumn;
+import fr.bbq.banque.xls.Stock;
+import fr.bbq.banque.xls.StockColumn;
 
 public class StockImportStarter extends AbstractWorkbookHandler {
 
@@ -28,15 +34,15 @@ public class StockImportStarter extends AbstractWorkbookHandler {
 	}
 
 	@Override
-	protected void processSheet(Sheet sheet) {
+	protected void processSheet(Workbook workbook, Sheet data) {
 		
 		// On ajoute la date du jour si elle n'est pas présente
-		DateColumn dc = new DateColumn(sheet);
+		DateColumn dc = new DateColumn(data);
 		dc.addTodayDate();
 		
 		
 		// On parcourt toutes les colonnes
-		StockColumn sc = StockColumn.first(sheet, dc.getLastRowIndex());
+		StockColumn sc = StockColumn.first(data, dc.getLastRowIndex());
 		while(sc.isPresent()) {
 			System.out.println("\n\nurl : " + sc.getUrl());
 			boolean metadata = sc.isMetaDataFilled();
@@ -94,7 +100,7 @@ public class StockImportStarter extends AbstractWorkbookHandler {
 	
 	private void sleep() {
 
-		// L'attente est aléatoirement calculé entre 1x et 2x SLEEP_INTERVAL_SECONDS
+		// L'attente est aléatoirement calculée entre 1x et 2x SLEEP_INTERVAL_SECONDS
 		try {
 			Thread.sleep(((int)(Math.random() * Constants.SLEEP_INTERVAL_SECONDS) + Constants.SLEEP_INTERVAL_SECONDS) * 1000);
 		} catch (InterruptedException e) {

@@ -1,14 +1,15 @@
-package fr.bbq.banque;
+package fr.bbq.banque.xls;
 
-import static fr.bbq.banque.CellUtils.getCellAsTextValue;
-import static fr.bbq.banque.CellUtils.isEmpty;
-import static fr.bbq.banque.CellUtils.writeCell;
 import static fr.bbq.banque.Constants.SDF_EXCEL;
+import static fr.bbq.banque.util.CellUtils.getCellAsTextValue;
+import static fr.bbq.banque.util.CellUtils.isEmpty;
+import static fr.bbq.banque.util.CellUtils.writeCell;
 
 import java.util.Date;
 
 import org.apache.poi.ss.usermodel.Sheet;
 
+import fr.bbq.banque.Constants;
 import lombok.Getter;
 
 public class DateColumn {

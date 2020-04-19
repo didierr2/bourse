@@ -1,4 +1,4 @@
-package fr.bbq.banque;
+package fr.bbq.banque.xls;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
