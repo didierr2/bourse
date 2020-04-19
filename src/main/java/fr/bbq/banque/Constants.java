@@ -13,7 +13,7 @@ public final class Constants {
 	
 	public static final int SLEEP_INTERVAL_SECONDS = 5;
 	
-	enum ROWS_AND_CELLS {
+	public enum ROWS_AND_CELLS {
 		SHEET_DATA(0),
 		SHEET_INDICATEURS(1),
 		SHEET_SYNTHESE(2),
@@ -23,13 +23,19 @@ public final class Constants {
 		ROW_URL (2),
 		ROW_ISIN (3),
 		ROW_SOCIETE (4),
-		COL_DATE(0);
+		ROW_REF_PRICE(5),
+		COL_DATE(0),
+		
+		// Les indicateurs
+		COL_INDICATORS_SOCIETY (0),
+		COL_INDICATORS_FIRST(1),
+		ROW_INDICATORS_HEADERS (0),
+		ROW_INDICATORS_FIRST(1);
 		
 		
-		int value = 0;
+		public int value = 0;
 		ROWS_AND_CELLS(int n) {
 			value = n;
-			
 		}
 	}
 			
