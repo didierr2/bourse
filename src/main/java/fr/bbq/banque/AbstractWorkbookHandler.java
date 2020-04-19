@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -35,26 +37,54 @@ public abstract class AbstractWorkbookHandler {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public void readWorkbook(OPEN_MODE openMode, String workbookPath, int sheetNumber) throws FileNotFoundException, IOException {
+	public void readWorkbook(OPEN_MODE openMode, String workbookPath, int... sheetNumbers) throws FileNotFoundException, IOException {
 		Workbook workbook = null;
 		System.out.println("Ouverture du fichier : " + workbookPath);
 		try (FileInputStream stream = new FileInputStream(new File(workbookPath))) {
 			workbook = new XSSFWorkbook(stream);
-			Sheet sheet = workbook.getSheetAt(sheetNumber);
-			
-			System.out.println("Recuperation de la feuille : " + sheet.getSheetName());
-			processSheet(sheet);
+			List<Sheet> lstSheet = new ArrayList<>();
+			String names = "";
+			for (int num : sheetNumbers) {
+				Sheet sheet = workbook.getSheetAt(num);
+				lstSheet.add(sheet);
+				names += sheet.getSheetName() + " ";
+			}
+			System.out.println("Recuperation des feuilles : " + names);
+			processSheet(workbook, lstSheet.toArray(new Sheet[lstSheet.size()]));
 			
 		}
 		// on enregistre le fichier
 		saveAndCloseWorkbook(workbook, workbookPath, openMode);
 	}
 	
+	protected void processSheet(Workbook workbook, Sheet sheet) {
+	}
+
+	protected void processSheet(Workbook workbook, Sheet sheet1, Sheet sheet2) {
+	}
+
+	protected void processSheet(Workbook workbook, Sheet sheet1, Sheet sheet2, Sheet sheet3) {
+	}
+
 	/**
 	 * Méthode de traitement d'une feuille excel
 	 * @param sheet
 	 */
-	protected abstract void processSheet(Sheet sheet);
+	protected void processSheet(Workbook workbook, Sheet... sheets) {
+		switch (sheets.length) {
+		case 1 :
+			processSheet(workbook, sheets[0]);
+		break;
+		case 2 : 
+			processSheet(workbook, sheets[0], sheets[1]);
+		break;
+		case 3 : 
+			processSheet(workbook, sheets[0], sheets[1], sheets[2]);
+		break;
+		default :
+			throw new IllegalStateException("Pour traiter plus de 3 feuilles, il faut réécrire cette méthode");
+		}
+	}
 	
 	/**
 	 * Permet de fermer les streams du fichier excel et de sauvegarder si necessaire
