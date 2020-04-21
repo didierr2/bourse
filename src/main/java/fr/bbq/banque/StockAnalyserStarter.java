@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import fr.bbq.banque.Constants.ROWS_AND_CELLS;
+import fr.bbq.banque.indicator.GlobalIndicators;
 import fr.bbq.banque.indicator.Indicator;
 import fr.bbq.banque.indicator.StockIndicators;
 import fr.bbq.banque.util.CellUtils;
@@ -28,18 +29,19 @@ public class StockAnalyserStarter extends AbstractWorkbookHandler {
 			System.exit(-1);
 		}
 		
-		new StockAnalyserStarter().importStocks(args[0]);
+		new StockAnalyserStarter().analyseStocks(args[0]);
 	}
 	
 
-	public void importStocks(String filePath) throws FileNotFoundException, IOException {
+	public void analyseStocks(String filePath) throws FileNotFoundException, IOException {
 		readWorkbook(OPEN_MODE.READ_WRITE, filePath, Constants.ROWS_AND_CELLS.SHEET_DATA.value, Constants.ROWS_AND_CELLS.SHEET_INDICATEURS.value);
 	}
 
 	@Override
 	protected void processSheet(Workbook workbook, Sheet sdata, Sheet sIndicateurs) {
 		
-		CellUtils.getCellAsTextValue(sIndicateurs, 0, 0);
+		// Init les indicateurs globaux (cross actions)
+		GlobalIndicators globalInd = new GlobalIndicators();
 		
 		// On récupère la date du jour
 		DateColumn dc = new DateColumn(sdata);
@@ -50,6 +52,7 @@ public class StockAnalyserStarter extends AbstractWorkbookHandler {
 		int rowIndex = ROWS_AND_CELLS.ROW_INDICATORS_FIRST.value;
 		while(sc.isPresent()) {
 			StockIndicators stockInd = new StockIndicators(sc);
+			globalInd.addStockIndicator(stockInd);
 			
 			// Enregistre le nom de la societe
 			writeCell(sIndicateurs, rowIndex, ROWS_AND_CELLS.COL_INDICATORS_SOCIETY.value, stockInd.getStockName());
@@ -84,5 +87,8 @@ public class StockAnalyserStarter extends AbstractWorkbookHandler {
 			sc.nextCol();
 			
 		}
+		
+		// Traite les indicateurs globaux
+		
 	}
 }

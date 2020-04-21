@@ -25,7 +25,11 @@ public class StockImportStarter extends AbstractWorkbookHandler {
 			System.exit(-1);
 		}
 		
+		// On réalise l'import des cours
 		new StockImportStarter().importStocks(args[0]);
+		
+		// On enchaine avec l'analyse des cours
+		new StockAnalyserStarter().analyseStocks(args[0]);
 	}
 	
 
