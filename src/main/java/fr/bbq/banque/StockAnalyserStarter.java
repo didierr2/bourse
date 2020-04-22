@@ -14,7 +14,6 @@ import fr.bbq.banque.Constants.ROWS_AND_CELLS;
 import fr.bbq.banque.indicator.GlobalIndicators;
 import fr.bbq.banque.indicator.Indicator;
 import fr.bbq.banque.indicator.StockIndicators;
-import fr.bbq.banque.util.CellUtils;
 import fr.bbq.banque.xls.DateColumn;
 import fr.bbq.banque.xls.StockColumn;
 

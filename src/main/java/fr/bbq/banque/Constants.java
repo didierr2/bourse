@@ -15,14 +15,16 @@ public final class Constants {
 	
 	public enum ROWS_AND_CELLS {
 		SHEET_DATA(0),
-		SHEET_INDICATEURS(1),
-		SHEET_SYNTHESE(2),
+		SHEET_INDICATOR(1),
+		SHEET_SYNTHESIS(2),
 		
 		
 		COL_FIRST_STOCK (1),
+		ROW_INDEX (0), // INDICE (DOW, CAC)
+		ROW_RECO (1), // RECOMMANDATION
 		ROW_URL (2),
 		ROW_ISIN (3),
-		ROW_SOCIETE (4),
+		ROW_SOCIETY (4),
 		ROW_REF_PRICE(5),
 		COL_DATE(0),
 		
