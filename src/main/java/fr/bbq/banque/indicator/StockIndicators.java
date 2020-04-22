@@ -28,7 +28,7 @@ public class StockIndicators {
 	}
 	
 	public String getStockName() {
-		return stockColumn.getSociete();
+		return stockColumn.getSociety();
 	}
 	
 	public List<Indicator> getIndicators() {

@@ -28,13 +28,21 @@ public class StockColumn {
 		return getCellAsTextValue(Constants.ROWS_AND_CELLS.ROW_URL.value);
 	}
 
-	public String getSociete() {
-		return getCellAsTextValue(Constants.ROWS_AND_CELLS.ROW_SOCIETE.value);
+	public String getSociety() {
+		return getCellAsTextValue(Constants.ROWS_AND_CELLS.ROW_SOCIETY.value);
 	}
 
 	public String getIsin() {
 		return getCellAsTextValue(Constants.ROWS_AND_CELLS.ROW_ISIN.value);
 	}
+	
+	public String getIndex() {
+		return getCellAsTextValue(Constants.ROWS_AND_CELLS.ROW_INDEX.value);
+	}	
+
+	public String getRecommendation() {
+		return getCellAsTextValue(Constants.ROWS_AND_CELLS.ROW_RECO.value);
+	}	
 
 	public String getTodayPrice() {
 		return getCellAsTextValue(todayRowIndex);
@@ -69,7 +77,7 @@ public class StockColumn {
 	}
 	
 	public boolean isMetaDataFilled () {
-		return !isEmpty(getSociete()) && !isEmpty(getIsin());
+		return !isEmpty(getSociety()) && !isEmpty(getIsin());
 	}
 	
 	
@@ -81,7 +89,7 @@ public class StockColumn {
 	public void update (Stock stock) {
 		if (!isMetaDataFilled()) {
 			writeCell(sheet, Constants.ROWS_AND_CELLS.ROW_ISIN.value, columnIndex, stock.getIsin());
-			writeCell(sheet, Constants.ROWS_AND_CELLS.ROW_SOCIETE.value, columnIndex, stock.getSociete());
+			writeCell(sheet, Constants.ROWS_AND_CELLS.ROW_SOCIETY.value, columnIndex, stock.getSociete());
 		}
 		writeNumericCell(sheet, todayRowIndex, columnIndex, stock.getCours());
 	}

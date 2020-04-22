@@ -52,7 +52,7 @@ public class StockImportStarter extends AbstractWorkbookHandler {
 			boolean metadata = sc.isMetaDataFilled();
 			if (metadata) {
 				System.out.println("isin : " + sc.getIsin());
-				System.out.println("societe : " + sc.getSociete());
+				System.out.println("societe : " + sc.getSociety());
 			}
 			System.out.println("isMetaDataFilled : " + metadata);
 			System.out.println("isTodayPriceFilled : " + sc.isTodayPriceFilled());
@@ -67,7 +67,7 @@ public class StockImportStarter extends AbstractWorkbookHandler {
 				sc.update(stock);
 				if (!metadata) {
 					System.out.println("isin : " + sc.getIsin());
-					System.out.println("societe : " + sc.getSociete());
+					System.out.println("societe : " + sc.getSociety());
 				}
 				System.out.println("update : getTodayPrice : " + sc.getTodayPrice());
 			}

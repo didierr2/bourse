@@ -34,7 +34,7 @@ public class StockAnalyserStarter extends AbstractWorkbookHandler {
 	
 
 	public void analyseStocks(String filePath) throws FileNotFoundException, IOException {
-		readWorkbook(OPEN_MODE.READ_WRITE, filePath, Constants.ROWS_AND_CELLS.SHEET_DATA.value, Constants.ROWS_AND_CELLS.SHEET_INDICATEURS.value);
+		readWorkbook(OPEN_MODE.READ_WRITE, filePath, Constants.ROWS_AND_CELLS.SHEET_DATA.value, Constants.ROWS_AND_CELLS.SHEET_INDICATOR.value);
 	}
 
 	@Override
