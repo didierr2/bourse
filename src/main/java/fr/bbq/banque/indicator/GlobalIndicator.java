@@ -1,13 +1,9 @@
 package fr.bbq.banque.indicator;
 
-import lombok.NoArgsConstructor;
+public interface GlobalIndicator {
 
-@NoArgsConstructor
-public abstract class GlobalIndicator {
-
-	public abstract void addStockIndicator(StockIndicators sind);
+	void addStockIndicator(StockIndicators sind);
 	
-	public abstract Indicator getIndicator();
-	
+	Indicator buildIndicator();
 	
 }

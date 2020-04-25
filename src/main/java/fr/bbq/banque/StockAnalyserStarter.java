@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import fr.bbq.banque.Constants.ROWS_AND_CELLS;
+import fr.bbq.banque.indicator.GlobalIndicator;
 import fr.bbq.banque.indicator.GlobalIndicators;
 import fr.bbq.banque.indicator.Indicator;
 import fr.bbq.banque.indicator.StockIndicators;
@@ -33,11 +34,11 @@ public class StockAnalyserStarter extends AbstractWorkbookHandler {
 	
 
 	public void analyseStocks(String filePath) throws FileNotFoundException, IOException {
-		readWorkbook(OPEN_MODE.READ_WRITE, filePath, Constants.ROWS_AND_CELLS.SHEET_DATA.value, Constants.ROWS_AND_CELLS.SHEET_INDICATOR.value);
+		readWorkbook(OPEN_MODE.READ_WRITE, filePath, Constants.ROWS_AND_CELLS.SHEET_DATA.value, Constants.ROWS_AND_CELLS.SHEET_INDICATOR.value, Constants.ROWS_AND_CELLS.SHEET_SYNTHESIS.value);
 	}
 
 	@Override
-	protected void processSheet(Workbook workbook, Sheet sdata, Sheet sIndicateurs) {
+	protected void processSheet(Workbook workbook, Sheet sdata, Sheet sIndicators, Sheet sSynthesis) {
 		
 		// Init les indicateurs globaux (cross actions)
 		GlobalIndicators globalInd = new GlobalIndicators();
@@ -54,28 +55,18 @@ public class StockAnalyserStarter extends AbstractWorkbookHandler {
 			globalInd.addStockIndicator(stockInd);
 			
 			// Enregistre le nom de la societe
-			writeCell(sIndicateurs, rowIndex, ROWS_AND_CELLS.COL_INDICATORS_SOCIETY.value, stockInd.getStockName());
+			writeCell(sIndicators, rowIndex, ROWS_AND_CELLS.COL_INDICATORS_HEADERS.value, stockInd.getStockName());
 			
 			// On enregistre dans la feuille indicateurs toutes ces infos
 			int colIndex = ROWS_AND_CELLS.COL_INDICATORS_FIRST.value;
 			System.out.println("Write Indicators for " + stockInd.getStockName());
 			for (Indicator ind : stockInd.getIndicators()) {
 				
-				// Enregistre l'enetete de l'indicateur
+				// Enregistre l'indicateur
 				if (writeHeaders) {
-					writeCell(sIndicateurs, ROWS_AND_CELLS.ROW_INDICATORS_HEADERS.value, colIndex, ind.getName());
+					writeCell(sIndicators, ROWS_AND_CELLS.ROW_INDICATORS_HEADERS.value, colIndex, ind.getName());
 				}
-				
-				// Enregistre la valeur de l'indicateur
-				if (ind.isPercent()) {
-					writePercentCell(workbook, sIndicateurs, rowIndex, colIndex, ind.getValue());
-				}
-				else if (ind.isNumeric()) {
-					writeNumericCell(sIndicateurs, rowIndex, colIndex, ind.getValue());
-				}
-				else {
-					writeCell(sIndicateurs, rowIndex, colIndex, ind.getValue());
-				}
+				writeIndicator(workbook, sIndicators, rowIndex, colIndex, ind);
 				System.out.println(String.format("   - %s = %s", ind.getName(), ind.getValue()));
 				
 				colIndex++;
@@ -88,6 +79,31 @@ public class StockAnalyserStarter extends AbstractWorkbookHandler {
 		}
 		
 		// Traite les indicateurs globaux
+		rowIndex = ROWS_AND_CELLS.ROW_INDICATORS_FIRST.value;
+		System.out.println("Write global indicators");
+		for (GlobalIndicator gind : globalInd.getIndicators()) {
+			Indicator ind = gind.buildIndicator();
+			// Enregistre l'indicateur
+			writeCell(sSynthesis, rowIndex, ROWS_AND_CELLS.COL_INDICATORS_FIRST.value, ind.getName());
+			writeIndicator(workbook, sSynthesis, rowIndex, ROWS_AND_CELLS.COL_INDICATORS_FIRST.value + 1, ind);
+			writeCell(sSynthesis, rowIndex, ROWS_AND_CELLS.COL_INDICATORS_FIRST.value + 2, ind.getDescription());
+			System.out.println(String.format("   - %s = %s", ind.getName(), ind.getValue()));
+			rowIndex++;
+		}
 		
+	}
+	
+	
+	private void writeIndicator(Workbook workbook, Sheet sheet, int rowIndex, int colIndex, Indicator ind) {
+		// Enregistre la valeur de l'indicateur
+		if (ind.isPercent()) {
+			writePercentCell(workbook, sheet, rowIndex, colIndex, ind.getValue());
+		}
+		else if (ind.isNumeric()) {
+			writeNumericCell(sheet, rowIndex, colIndex, ind.getValue());
+		}
+		else {
+			writeCell(sheet, rowIndex, colIndex, ind.getValue());
+		}
 	}
 }

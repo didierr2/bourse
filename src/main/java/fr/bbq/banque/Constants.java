@@ -29,7 +29,7 @@ public final class Constants {
 		COL_DATE(0),
 		
 		// Les indicateurs
-		COL_INDICATORS_SOCIETY (0),
+		COL_INDICATORS_HEADERS (0),
 		COL_INDICATORS_FIRST(1),
 		ROW_INDICATORS_HEADERS (0),
 		ROW_INDICATORS_FIRST(1);

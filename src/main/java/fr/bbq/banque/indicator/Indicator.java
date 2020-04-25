@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class Indicator {
 
 	String name;
+	String description;
 	String value;
 	@Builder.Default
 	boolean numeric = true;

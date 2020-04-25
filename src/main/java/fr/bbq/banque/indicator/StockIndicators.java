@@ -10,10 +10,13 @@ import lombok.Getter;
 
 public class StockIndicators {
 
+	@Getter
 	final StockColumn stockColumn;
 
 	@Getter
 	Indicator diffFromRefIndicator;
+	@Getter
+	Indicator diffFrom2WeekIndicator;
 	@Getter
 	Indicator diffFrom1WeekIndicator;
 	@Getter
@@ -23,6 +26,7 @@ public class StockIndicators {
 	public StockIndicators(StockColumn stockColumn) {
 		this.stockColumn = stockColumn;
 		diffFromRefIndicator(); 
+		diffFrom2WeekIndicator();
 		diffFrom1WeekIndicator();
 		diffFrom2DaysIndicator();
 	}
@@ -35,6 +39,7 @@ public class StockIndicators {
 		List<Indicator> indicators = new ArrayList<>();
 		
 		indicators.add(diffFromRefIndicator);
+		indicators.add(diffFrom2WeekIndicator);
 		indicators.add(diffFrom1WeekIndicator);
 		indicators.add(diffFrom2DaysIndicator);
 		
@@ -60,6 +65,17 @@ public class StockIndicators {
 				.numeric(!val.isEmpty())
 				.build();
 	}
+	
+	protected void diffFrom2WeekIndicator() {
+		String val = percentPrice(stockColumn.getLastNPrice(10), stockColumn.getTodayPrice());
+		diffFrom2WeekIndicator = Indicator
+				.builder()
+				.name("% 2 weeks")
+				.value(val)
+				.percent(!val.isEmpty())
+				.numeric(!val.isEmpty())
+				.build();
+	}	
 
 	protected void diffFrom2DaysIndicator() {
 		String val = percentPrice(stockColumn.getLastNPrice(2), stockColumn.getTodayPrice());

@@ -42,8 +42,13 @@ public class StockColumn {
 
 	public String getRecommendation() {
 		return getCellAsTextValue(Constants.ROWS_AND_CELLS.ROW_RECO.value);
-	}	
+	}
 
+	public boolean isRecommended() {
+		String reco = getRecommendation();
+		return reco != null && !reco.isEmpty();
+	}
+	
 	public String getTodayPrice() {
 		return getCellAsTextValue(todayRowIndex);
 	}

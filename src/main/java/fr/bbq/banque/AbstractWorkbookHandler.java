@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.openxml4j.util.ZipSecureFile;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -38,6 +39,7 @@ public abstract class AbstractWorkbookHandler {
 	 * @throws IOException
 	 */
 	public void readWorkbook(OPEN_MODE openMode, String workbookPath, int... sheetNumbers) throws FileNotFoundException, IOException {
+		ZipSecureFile.setMinInflateRatio(0) ;
 		Workbook workbook = null;
 		System.out.println("Ouverture du fichier : " + workbookPath);
 		try (FileInputStream stream = new FileInputStream(new File(workbookPath))) {
