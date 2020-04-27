@@ -6,7 +6,7 @@ import static fr.bbq.banque.util.Conversions.toDouble;
 @NoArgsConstructor
 public class AllFrom1Week implements GlobalIndicator {
 
-	double nbStocks = 0d;
+	int nbStocks = 0;
 	double cumulPercent = 0d;
 	
 	public void addStockIndicator(StockIndicators sind) {

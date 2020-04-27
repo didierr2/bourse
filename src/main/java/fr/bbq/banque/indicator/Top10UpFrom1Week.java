@@ -6,7 +6,7 @@ public class Top10UpFrom1Week extends AbstractTopIndicator{
 
 	public Top10UpFrom1Week() {
 		super(	10,
-				(o1, o2) -> (int)(toDouble(o2.getValue()) - toDouble(o1.getValue()))
+				(o1, o2) -> (toDouble(o2.getValue()) > toDouble(o1.getValue()) ? 1 : -1)
 				);
 	}
 
