@@ -44,6 +44,18 @@ public class StockColumn {
 		return getCellAsTextValue(Constants.ROWS_AND_CELLS.ROW_RECO.value);
 	}
 
+	public String getReportComm() {
+		return getCellAsTextValue(Constants.ROWS_AND_CELLS.ROW_REPORT_COMM.value);
+	}
+
+	public String getBuyDate() {
+		return getCellAsTextValue(Constants.ROWS_AND_CELLS.ROW_BUY_DATE.value);
+	}
+
+	public String getCostPrice() {
+		return getCellAsTextValue(Constants.ROWS_AND_CELLS.ROW_COST_PRICE.value);
+	}
+
 	public boolean isRecommended() {
 		String reco = getRecommendation();
 		return reco != null && !reco.isEmpty();

@@ -22,10 +22,13 @@ public final class Constants {
 		COL_FIRST_STOCK (1),
 		ROW_INDEX (0), // INDICE (DOW, CAC)
 		ROW_RECO (1), // RECOMMANDATION
-		ROW_URL (2),
-		ROW_ISIN (3),
-		ROW_SOCIETY (4),
-		ROW_REF_PRICE(5),
+		ROW_REPORT_COMM (2),
+		ROW_BUY_DATE (3),
+		ROW_COST_PRICE (4),
+		ROW_URL (5),
+		ROW_ISIN (6),
+		ROW_SOCIETY (7),
+		ROW_REF_PRICE(8),
 		COL_DATE(0),
 		
 		// Les indicateurs

@@ -67,10 +67,18 @@ public class StockAnalyserStarter extends AbstractWorkbookHandler {
 					writeCell(sIndicators, ROWS_AND_CELLS.ROW_INDICATORS_HEADERS.value, colIndex, ind.getName());
 				}
 				writeIndicator(workbook, sIndicators, rowIndex, colIndex, ind);
-				System.out.println(String.format("   - %s = %s", ind.getName(), ind.getValue()));
+//				System.out.println(String.format("   - %s = %s", ind.getName(), ind.getValue()));
 				
 				colIndex++;
 			}
+			if (writeHeaders) {
+				writeCell(sIndicators, ROWS_AND_CELLS.ROW_INDICATORS_HEADERS.value, colIndex, "Date achat");
+				writeCell(sIndicators, ROWS_AND_CELLS.ROW_INDICATORS_HEADERS.value, colIndex+1, "Prix de revient");
+				writeCell(sIndicators, ROWS_AND_CELLS.ROW_INDICATORS_HEADERS.value, colIndex+2, "Commentaire");
+			}
+			writeCell(sIndicators, rowIndex, colIndex, sc.getBuyDate());
+			writeCell(sIndicators, rowIndex, colIndex+1, sc.getCostPrice());
+			writeCell(sIndicators, rowIndex, colIndex+2, sc.getReportComm());
 
 			writeHeaders = false;
 			rowIndex++;
